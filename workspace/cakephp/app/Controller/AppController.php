@@ -36,40 +36,39 @@ class AppController extends Controller {
 
     // include the Post Model
     public $uses = array(
-        'Post'
+        'User'
     );
 
-    // - include components
     public $components = array(
         'Flash',
         'Auth' => array(
-            // if the user is logged in
-            'loginRedirect' => array(
-                'controller' => 'users',
-                'action' => 'index'
-            ),
-
-            // if teh user is not logged in AND accesses a forbidden action,
-            'logoutRedirect' => array(
-                'controller' => 'pages',
-                'action' => 'display',
-                'home'
-            ),
             'authenticate' => array(
                 'Form' => array(
-                    // 'passwordHasher' => 'Blowfish',
-                    // if you want to customize the fields for logging in
-                    // 'fields'=>array('username'=>'email','password'=>'password')
+                    'fields' => array(
+                        'username' => 'email',
+                        'password' => 'password'
+                    ),
+                    'passwordHasher' => 'Blowfish'
                 )
-            )
+            ),
+            'loginRedirect' => array('controller' => 'Home', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'Login', 'action' => 'index'),
+            'authError' => 'You are not authorized to access that location.',
+            'authorize' => array('Controller'),
+            'loginAction' => array('controller' => 'Login', 'action' => 'index') // Specify the custom login action
         )
     );
-    
-    public function beforeFilter(){
-        parent::beforeFilter();
-        
-        // global restriction
-        // $this->Auth->allow('index', 'view', 'add');
-        $this->set('currentUser', $this->Auth->user());
+
+    public function beforeFilter() {
+        // Allow access to login and register actions without authentication
+        //$this->Auth->deny();
+        $this->Auth->allow('Login.index', 'Register.index', 'Register.thankyou');
+        //$this->Auth->allow();
+        $this->set('authUser', $this->Auth->user()); 
+    }
+
+    public function isAuthorized($user) {
+        // By default deny access.
+        return true;
     }
 }

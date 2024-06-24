@@ -1,0 +1,97 @@
+.input-space {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+    text-align: center;
+}
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.btn {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    transition: background-color 0.3s;
+}
+.btn:hover {
+    background-color: #0056b3;
+}
+.btn-large {
+    width: 250px;
+}
+.profile-picture-group {
+    display: flex;
+    align-items: center;
+}
+.profile-picture-preview {
+    margin-right: 20px;
+    max-width: 100px;
+}
+.profile-picture-input {
+    margin-bottom: 15px;
+    flex-grow: 1;
+}
+.navbar {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 10px;
+}
+.navbar a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #333;
+}
+.navbar .nav {
+    display: inline;
+}
+.navbar .nav li {
+    display: inline;
+    list-style: none;
+    margin-right: 10px;
+}
+.message-list {
+    width: 60%;
+    margin: 0 auto;
+}
+.messages {
+    list-style: none;
+    padding: 0;
+}
+.messages li {
+    margin-bottom: 10px;
+    clear: both;
+}
+.messages .sender .message-content {
+    background-color: #e1ffc7;
+    float: right;
+    text-align: right;
+}
+.messages .recipient .message-content {
+    background-color: #f1f0f0;
+    float: left;
+    text-align: left;
+}
+.messages .message-content {
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 60%;
+}
+.messages .sender {
+    text-align: right;
+}
+.messages .recipient {
+    text-align: left;
+}
