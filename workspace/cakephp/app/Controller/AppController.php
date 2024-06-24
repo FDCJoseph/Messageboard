@@ -34,9 +34,41 @@ class AppController extends Controller {
     // this will tell cakek to support php files for the view for rendering
     public $ext = '.php';
 
-    public function beforeFilter(){
-        parent::beforeFilter();
+    // include the Post Model
+    public $uses = array(
+        'User'
+    );
 
-        $this->set("GLOBAL_VARIABLE_NI_SIYA", 111);
+    public $components = array(
+        'Flash',
+        'Auth' => array(
+            'authenticate' => array(
+                'Form' => array(
+                    'fields' => array(
+                        'username' => 'email',
+                        'password' => 'password'
+                    ),
+                    'passwordHasher' => 'Blowfish'
+                )
+            ),
+            'loginRedirect' => array('controller' => 'Home', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'Login', 'action' => 'index'),
+            'authError' => 'You are not authorized to access that location.',
+            'authorize' => array('Controller'),
+            'loginAction' => array('controller' => 'Login', 'action' => 'index') // Specify the custom login action
+        )
+    );
+
+    public function beforeFilter() {
+        // Allow access to login and register actions without authentication
+        //$this->Auth->deny();
+        $this->Auth->allow('Login.index', 'Register.index', 'Register.thankyou');
+        //$this->Auth->allow();
+        $this->set('authUser', $this->Auth->user()); 
+    }
+
+    public function isAuthorized($user) {
+        // By default deny access.
+        return true;
     }
 }
